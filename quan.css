@@ -1,0 +1,185 @@
+body {
+    min-width: 400px;
+}
+
+h1, h5 {
+    text-align: center;
+}
+
+.quan-table {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.button {
+    color: white;
+}
+
+.quan-ml {
+    margin-left: 2rem;
+}
+
+.quan-ml1 {
+    margin-left: 1rem;
+}
+
+.quan-mt {
+    margin-top: 2rem;
+}
+
+.quan-mt5 {
+    margin-top: 5rem;
+}
+
+.quan-mb {
+    margin-bottom: 2rem;
+}
+
+.quan-pr-1 {
+    padding-right: 1rem;
+}
+
+.quan-flex {
+    display: flex;
+}
+
+.quan-justify-center {
+    justify-content: center;
+}
+
+.quan-items-center {
+    align-items: center;
+}
+
+.quan-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quan-flex-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.quan-flex-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.quan-btn-lg {
+    width: 70%;
+}
+
+.quan-btn-sm {
+    font-size: 0.7rem;
+}
+
+.quan-btn-save {
+    width: 35%;
+    justify-content: flex-end;
+}
+
+.quan-txt-center {
+    text-align: center;
+    color: red;
+}
+
+.quan-txt-bold{
+    font-weight: 700;
+}
+
+.quan-input-number{
+    width: 28%;
+}
+
+.quan-input-text{
+    width: 90.5%;
+    margin: 1rem;
+}
+
+.fa-trash{
+    color: rgb(224, 86, 86);
+}
+
+.fa-pen{
+    color: rgb(147, 196, 147);
+}
+
+.quan-w3{
+    width: 6.5rem;
+}
+
+#output {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#output .card{
+    /* width: 20rem; */
+    text-align: center;
+    margin-left: 1rem;
+    margin-top: 2rem;
+}
+
+#output .card td{
+    width: 25%;
+}
+
+#output .card h3 {
+    background-color: rgb(65, 161, 65);
+    color: white;
+    padding: 0.5rem;
+}
+
+#numOfComb{
+    text-align: center;
+    color: green;
+}
+
+table{
+    text-align: center;
+}
+
+td{
+    width: 20%;
+}
+
+.quan-border {
+    border: 1px solid rgb(184, 184, 184);
+    border-radius: 1px;
+}
+
+.quan-w70 {
+    width: 70%;
+}
+
+.quan-w50 {
+    width: 50%;
+}
+
+.quan-flex-col-dir {
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.quan-text-green {
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 7px rgb(66, 215, 116), 0 0 1px rgb(7, 103, 48);
+}
+
+.quan-text-primary {
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 7px rgb(36, 72, 181), 0 0 1px rgb(22, 22, 146);
+}
+
+.quan-table-success {
+    color: white;
+    background-color: rgb(83, 140, 83);
+}
+
+.quan-text-bold {
+    font-weight: 900;
+}

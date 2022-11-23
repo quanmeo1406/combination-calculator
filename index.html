@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Combination Calculator</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./quan.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body onload="displayGroups()">
+    <h1 class="quan-mt quan-mb quan-text-primary">Combination Calculator</h1>
+    <div class="quan-w70 quan-mt quan-mb quan-flex-end">
+      <form enctype="multipart/form-data">
+        <input id="upload" type="file" name="files[]" />
+      </form>
+    </div>
+
+    <div class="quan-table">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="quan-table-success">
+            <td>Group</td>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>Edit & Delete</td>
+          </tr>
+        </thead>
+        <tbody id="groups"></tbody>
+      </table>
+    </div>
+
+    <div class="quan-flex-center">
+      <button
+        type="button"
+        class="btn btn-primary quan-btn-lg"
+        data-bs-toggle="modal"
+        data-bs-target="#myModal"
+      >
+        CLICK TO ADD MORE GROUPS
+      </button>
+    </div>
+
+    <hr />
+    <div class="quan-flex-center">
+      <div
+        class="quan-flex-center quan-border quan-w70 quan-flex-col-dir quan-mt"
+      >
+        <h2 class="quan-text-green">Setting Lower Limit & Upper Limit</h2>
+        <div class="quan-w70">
+          <label for="l-limit" class="form-label">Lower limit:</label>
+          <input
+            type="number"
+            id="l-limit"
+            class="form-control"
+            placeholder="Lower limit"
+            min="0"
+          />
+        </div>
+
+        <div class="quan-w70">
+          <label for="u-limit" class="form-label">Upper limit:</label>
+          <input
+            type="number"
+            id="u-limit"
+            class="form-control"
+            placeholder="Upper limit"
+            min="0"
+          />
+        </div>
+
+        <div class="quan-w70 quan-mt">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="check"
+              name="option"
+              value="something"
+            />
+            <label class="form-check-label">Second Option</label>
+          </div>
+        </div>
+
+        <div class="quan-w70 quan-flex quan-mt">
+          <div class="quan-w50 quan-flex quan-items-center quan-pr-1">
+            ​
+            <select class="form-select" id="sel1" name="sellist1"></select>
+          </div>
+          <div class="quan-w50 quan-flex quan-items-center">
+            <input
+              type="number"
+              id="u-group"
+              class="form-control"
+              placeholder="Upper group limit"
+              min="0"
+            />
+          </div>
+        </div>
+
+        <div class="quan-w70 quan-flex quan-mt">
+          <div class="quan-w50 quan-flex quan-items-center quan-pr-1">
+            ​
+            <select class="form-select" id="sel2" name="sellist2"></select>
+          </div>
+          <div class="quan-w50 quan-flex quan-items-center">
+            <input
+              type="number"
+              id="l-group"
+              class="form-control"
+              placeholder="Lower group limit"
+              min="0"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quan-flex-center quan-mt">
+      <button onclick="generate()" class="btn btn-danger quan-btn-lg">
+        Generate
+      </button>
+    </div>
+    <hr />
+
+    <h1 class="quan-txt-al quan-mt5 quan-ml quan-text-primary">OUTPUT:</h1>
+    <div class="quan-table">
+      <div id="numOfComb"></div>
+      <div id="output"></div>
+    </div>
+
+    <!-- The Add Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Add more groups</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="quan-flex-center">
+              <input
+                type="text"
+                class="form-control quan-input-text"
+                name="addGroupName"
+                id="addGroupName"
+                placeholder="Group Name"
+              />
+            </div>
+            <div class="quan-flex-center">
+              <input
+                type="number"
+                class="form-control quan-input-number"
+                name="numb1"
+                id="addNum1"
+                placeholder="Num1"
+                min="1"
+              />
+              <input
+                type="number"
+                class="form-control quan-input-number quan-ml1"
+                name="numb2"
+                id="addNum2"
+                placeholder="Num2"
+                min="1"
+              />
+              <input
+                type="number"
+                class="form-control quan-input-number quan-ml1"
+                name="numb3"
+                id="addNum3"
+                placeholder="Num3"
+                min="1"
+              />
+            </div>
+            <div class="quan-flex-end quan-mt">
+              <button
+                type="button"
+                onclick="addGroups()"
+                class="btn btn-success quan-btn-save"
+              >
+                ADD
+              </button>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Edit Modal -->
+    <div class="modal" id="editModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Edit group</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="quan-flex-center">
+              <input
+                type="text"
+                class="form-control quan-input-text"
+                name="editGroupName"
+                id="editGroupName"
+                placeholder="Group Name"
+              />
+            </div>
+            <div class="quan-flex-center">
+              <input
+                type="number"
+                class="form-control quan-input-number"
+                name="editNum1"
+                id="editNum1"
+                placeholder="Num1"
+                min="1"
+              />
+              <input
+                type="number"
+                class="form-control quan-input-number quan-ml1"
+                name="editNum2"
+                id="editNum2"
+                placeholder="Num2"
+                min="1"
+              />
+              <input
+                type="number"
+                class="form-control quan-input-number quan-ml1"
+                name="editNum3"
+                id="editNum3"
+                placeholder="Num3"
+                min="1"
+              />
+            </div>
+            <input type="text" name="" id="hiddenIndex" hidden />
+            <div class="quan-flex-end quan-mt">
+              <button
+                type="button"
+                onclick="editGroup()"
+                class="btn btn-success quan-btn-save"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal" id="deleteConfirm">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Are you sure?</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <!-- Modal body -->
+          <!-- <div class="modal-body">
+                Modal body..
+            </div> -->
+          <input type="text" name="" id="deleteIndex" hidden />
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="deleteGroup()"
+              data-bs-dismiss="modal"
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./combination_calculator.js"></script>
+    <script>
+      document
+        .getElementById("upload")
+        .addEventListener("change", handleFileSelect, false);
+    </script>
+  </body>
+</html>
