@@ -29,7 +29,7 @@
     <h1 class="quan-mt quan-mb quan-text-primary">Combination Calculator</h1>
     <div class="quan-w70 quan-mt quan-mb quan-flex-end">
       <form enctype="multipart/form-data">
-        <input id="upload" type="file" name="files[]" />
+        <input class="form-control" name="files[]" type="file" id="upload" />
       </form>
     </div>
 
@@ -100,7 +100,7 @@
           </div>
         </div>
 
-        <div class="quan-w70 quan-flex quan-mt">
+        <div class="quan-w70 quan-flex quan-mt flex flex-wrap">
           <div class="quan-w50 quan-flex quan-items-center quan-pr-1">
             ​
             <select class="form-select" id="sel1" name="sellist1"></select>
@@ -116,7 +116,7 @@
           </div>
         </div>
 
-        <div class="quan-w70 quan-flex quan-mt">
+        <div class="quan-w70 quan-flex quan-mt flex flex-wrap">
           <div class="quan-w50 quan-flex quan-items-center quan-pr-1">
             ​
             <select class="form-select" id="sel2" name="sellist2"></select>
@@ -124,9 +124,16 @@
           <div class="quan-w50 quan-flex quan-items-center">
             <input
               type="number"
-              id="l-group"
-              class="form-control"
-              placeholder="Lower group limit"
+              id="l-l-group"
+              class="form-control quan-w50"
+              placeholder="Lower limit"
+              min="0"
+            />
+            <input
+              type="number"
+              id="l-u-group"
+              class="form-control quan-w50 quan-ml1"
+              placeholder="Upper limit"
               min="0"
             />
           </div>

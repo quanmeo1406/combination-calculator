@@ -207,13 +207,6 @@ const calc = (depth, remain, items) => {
   if (groupArray.length < depth + 1) {
     const lastArr = items[items.length - 1].slice(0, 3);
     if (Math.min(...lastArr) >= min && Math.max(...lastArr) <= max) {
-      console.log(
-        "items, min and max ",
-        items,
-        lastArr,
-        Math.min(...lastArr),
-        Math.max(...lastArr)
-      );
       outPut.push(items);
     }
     return;
@@ -235,13 +228,17 @@ const secondFilter = () => {
   const upperName = groupNames.indexOf(document.getElementById("sel1").value);
   const lowerName = groupNames.indexOf(document.getElementById("sel2").value);
   const upperGroupLimit = document.getElementById("u-group").value;
-  const lowerGroupLimit = document.getElementById("l-group").value;
+  const lowerGroupUpperLimit = document.getElementById("l-u-group").value;
+  const lowerGroupLowerLimit = document.getElementById("l-l-group").value;
+
+  // console.log("lower upper", lowerGroupLowerLimit, lowerGroupUpperLimit);
 
   const clone = [];
   outPut.map((eachOutPut, i) => {
     if (
       eachOutPut[upperName][3] <= upperGroupLimit &&
-      eachOutPut[lowerName][3] >= lowerGroupLimit
+      eachOutPut[lowerName][3] >= lowerGroupLowerLimit &&
+      eachOutPut[lowerName][3] <= lowerGroupUpperLimit
     ) {
       clone.push(eachOutPut);
     }
@@ -279,7 +276,11 @@ const getInputDataFromJSON = (jsonObj) => {
   groupNames = [];
   jsonObj.map((eachGroupObj, i) => {
     groupNames.push(eachGroupObj.GroupName.trim());
-    groupArray.push([eachGroupObj.A, eachGroupObj.B, eachGroupObj.C]);
+    groupArray.push([
+      Number(eachGroupObj.A.replace(/,/g, "")),
+      Number(eachGroupObj.B.replace(/,/g, "")),
+      Number(eachGroupObj.C.replace(/,/g, "")),
+    ]);
   });
 
   localStorage.setItem("groupArray", JSON.stringify(groupArray));
@@ -302,7 +303,7 @@ const ExcelToJSON = function () {
           workbook.Sheets[sheetName]
         );
         var json_object = JSON.stringify(XL_row_object);
-        console.log(JSON.parse(json_object));
+        // console.log(JSON.parse(json_object));
 
         getInputDataFromJSON(JSON.parse(json_object));
 

@@ -183,3 +183,22 @@ td{
 .quan-text-bold {
     font-weight: 900;
 }
+
+@media screen and (max-width: 768px) {
+    .quan-w70 {
+        width: 90%;
+    }
+
+    .quan-w50 {
+        width: 100%;
+    }
+
+    .quan-table {
+        width: 90%;
+    }
+
+    .quan-pr-1 {
+        padding: 0;
+        padding-bottom: 5px;
+    }
+  }
