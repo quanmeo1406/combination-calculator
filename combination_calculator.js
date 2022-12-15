@@ -366,12 +366,12 @@ function generate() {
       //get sum for a group
       return total + Number(num);
     }, 0);
-    calc(0, initialSum, []);
+    if (max > 0) calc(0, initialSum, []);
   }
   if (document.getElementById("check").checked) secondFilter();
   if (document.getElementById("check_third").checked) thirdFilter();
   currentLimit = 0;
-  displayOutPut();
+  if (outPut.length) displayOutPut();
 }
 
 const toPrev = () => {
