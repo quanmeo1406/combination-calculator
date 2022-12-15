@@ -88,16 +88,16 @@ function displayOutPut() {
     let cardComponent = "";
     const numOfComb = document.getElementById("numOfComb");
     numOfComb.innerHTML = "<h3> Number Of results: " + outPut.length + "</h3>";
-
     for (
       let index = currentLimit * 30;
       index < (currentLimit + 1) * 30;
       index++
     ) {
       const eachOutPut = outPut[index];
-      cardComponent =
-        cardComponent +
-        `<div class="card">
+      if (eachOutPut)
+        cardComponent =
+          cardComponent +
+          `<div class="card">
             <h3>Output ${index + 1}</h3>
             <table class="table table-hover table-bordered result-table">
                 <thead>
@@ -372,7 +372,6 @@ function generate() {
   if (document.getElementById("check").checked) secondFilter();
   if (document.getElementById("check_third").checked) thirdFilter();
   currentLimit = 0;
-
   displayOutPut();
 }
 
@@ -382,7 +381,8 @@ const toPrev = () => {
 };
 
 const toNext = () => {
-  if (currentLimit < outPut.length / 30 - 1) currentLimit = currentLimit + 1;
+  if (currentLimit < Math.ceil(outPut.length / 30) - 1)
+    currentLimit = currentLimit + 1;
   if (outPut.length) displayOutPut();
 };
 
@@ -392,6 +392,7 @@ const toPrevEnd = () => {
 };
 
 const toNextEnd = () => {
-  currentLimit = outPut.length / 30 - 1;
+  currentLimit = Math.ceil(outPut.length / 30) - 1;
+  console.log("currentLimit ", currentLimit);
   if (outPut.length) displayOutPut();
 };
