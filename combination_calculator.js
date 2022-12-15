@@ -77,9 +77,8 @@ function displayOutPut() {
 
   if (!outPut.length) {
     if (min > 0 && max > 0)
-      resultTbody.innerHTML = "<h3>Sorry, there's no results...</h3>";
-    else
-      resultTbody.innerHTML = "<h3>Please the input conditions exactly...</h3>";
+      resultTbody.innerHTML = "<h3>Sorry, there's no tickets...</h3>";
+    else resultTbody.innerHTML = "<h3>Please the filters exactly...</h3>";
 
     const numOfComb = document.getElementById("numOfComb");
     numOfComb.innerHTML = "";
@@ -87,7 +86,7 @@ function displayOutPut() {
     let index = 0;
     let cardComponent = "";
     const numOfComb = document.getElementById("numOfComb");
-    numOfComb.innerHTML = "<h3> Number Of results: " + outPut.length + "</h3>";
+    numOfComb.innerHTML = "<h3> Number Of Tickets: " + outPut.length + "</h3>";
     for (
       let index = currentLimit * 30;
       index < (currentLimit + 1) * 30;
@@ -98,15 +97,15 @@ function displayOutPut() {
         cardComponent =
           cardComponent +
           `<div class="card">
-            <h3>Output ${index + 1}</h3>
+            <h3>Ticket ${index + 1}</h3>
             <table class="table table-hover table-bordered result-table">
                 <thead>
                     <tr class='table-primary'>
-                        <th>Group</th>
-                        <th>A</th>
-                        <th>B</th>
-                        <th>C</th>
-                        <th>RN</th>
+                        <th>Matches</th>
+                        <th>HOME</th>
+                        <th>DRAW</th>
+                        <th>AWAY</th>
+                        <th>UNITS</th>
                     </tr>
                 </thead>
                 <tbody>
