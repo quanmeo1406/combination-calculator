@@ -358,6 +358,11 @@ function thirdFilter() {
 }
 
 function generate() {
+  const resultTbody = document.getElementById("output");
+  resultTbody.innerHTML = "<h3>Sorry, there's no tickets...</h3>";
+  const numOfComb = document.getElementById("numOfComb");
+  numOfComb.innerHTML = "";
+
   min = document.getElementById("l-limit").value || 0;
   max = document.getElementById("u-limit").value || 0;
   outPut = [];
