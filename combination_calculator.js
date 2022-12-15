@@ -18,6 +18,10 @@ let outPut = [];
 let groupArray = [];
 let groupNames = [];
 let initialSum = 0;
+let Condition1 = 0;
+let Condition2 = 0;
+let Condition3 = 0;
+let currentLimit = 0;
 const columnName = ["A", "B", "C"];
 
 let min = document.getElementById("l-limit").value || 0;
@@ -75,21 +79,26 @@ function displayOutPut() {
     if (min > 0 && max > 0)
       resultTbody.innerHTML = "<h3>Sorry, there's no results...</h3>";
     else
-      resultTbody.innerHTML =
-        "<h3>Please input lower limit and upper limit exactly...</h3>";
+      resultTbody.innerHTML = "<h3>Please the input conditions exactly...</h3>";
 
     const numOfComb = document.getElementById("numOfComb");
     numOfComb.innerHTML = "";
   } else {
     let index = 0;
+    let cardComponent = "";
     const numOfComb = document.getElementById("numOfComb");
     numOfComb.innerHTML = "<h3> Number Of results: " + outPut.length + "</h3>";
 
-    const cardComponent = outPut.map((eachOutPut, key) => {
-      index = index + 1;
-
-      return `<div class="card">
-            <h3>Output ${index}</h3>
+    for (
+      let index = currentLimit * 30;
+      index < (currentLimit + 1) * 30;
+      index++
+    ) {
+      const eachOutPut = outPut[index];
+      cardComponent =
+        cardComponent +
+        `<div class="card">
+            <h3>Output ${index + 1}</h3>
             <table class="table table-hover table-bordered result-table">
                 <thead>
                     <tr class='table-primary'>
@@ -107,7 +116,7 @@ function displayOutPut() {
                             <td>${groupNames[i]}</td>
                             ${clone.map((item, key) => {
                               if (key === eachArr[4])
-                                return `<td class='quan-text-bold'>${item}</td>`;
+                                return `<td class='quan-text-bold quan-bg-pink'>${item}</td>`;
                               else return `<td>${item}</td>`;
                             })}
                             <td>${eachArr[3] ? eachArr[3] : ""}</td>
@@ -116,12 +125,21 @@ function displayOutPut() {
                 </tbody>
             </table>
             </div>`;
-    });
+    }
 
-    resultTbody.innerHTML =
-      resultTbody.innerHTML + cardComponent.toString().replace(/,/g, "");
+    cardComponent = cardComponent.toString().replace(/,/g, "");
+
+    resultTbody.innerHTML = resultTbody.innerHTML + cardComponent;
   }
+
+  return true;
 }
+
+const displayLoading = () => {
+  console.log("HI");
+  const resultTbody = document.getElementById("output");
+  resultTbody.innerHTML = "<div class='quan-loader'></div>";
+};
 
 function setValues(index) {
   document.getElementById("editGroupName").value = groupNames[index - 1];
@@ -325,6 +343,21 @@ function handleFileSelect(evt) {
   xl2json.parseExcel(files[0]);
 }
 
+function thirdFilter() {
+  Condition1 = document.getElementById("con1").value || 0;
+  Condition2 = document.getElementById("con2").value || 0;
+  Condition3 = document.getElementById("con3").value || 0;
+  let temp = [...outPut];
+  outPut = [];
+  temp.map((eachOutPut, k) => {
+    const NumA = eachOutPut.filter((item) => item[4] == 0).length;
+    const NumB = eachOutPut.filter((item) => item[4] == 1).length;
+    const NumC = eachOutPut.filter((item) => item[4] == 2).length;
+    if (NumA == Condition1 && NumB == Condition2 && NumC == Condition3)
+      outPut.push(eachOutPut);
+  });
+}
+
 function generate() {
   min = document.getElementById("l-limit").value || 0;
   max = document.getElementById("u-limit").value || 0;
@@ -336,11 +369,29 @@ function generate() {
     }, 0);
     calc(0, initialSum, []);
   }
-  // removeDuplicatedElements();
-
   if (document.getElementById("check").checked) secondFilter();
-
-  // console.log("output ", outPut);
+  if (document.getElementById("check_third").checked) thirdFilter();
+  currentLimit = 0;
 
   displayOutPut();
 }
+
+const toPrev = () => {
+  if (currentLimit > 0) currentLimit = currentLimit - 1;
+  if (outPut.length) displayOutPut();
+};
+
+const toNext = () => {
+  if (currentLimit < outPut.length / 30 - 1) currentLimit = currentLimit + 1;
+  if (outPut.length) displayOutPut();
+};
+
+const toPrevEnd = () => {
+  currentLimit = 0;
+  if (outPut.length) displayOutPut();
+};
+
+const toNextEnd = () => {
+  currentLimit = outPut.length / 30 - 1;
+  if (outPut.length) displayOutPut();
+};

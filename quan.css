@@ -39,6 +39,10 @@ h1, h5 {
     padding-right: 1rem;
 }
 
+.quan-mr-1 {
+    margin-right: 1rem;
+}
+
 .quan-flex {
     display: flex;
 }
@@ -182,6 +186,22 @@ td{
 
 .quan-text-bold {
     font-weight: 900;
+}
+
+.table .quan-bg-pink {
+    background-color: rgb(161 214 225);
+}
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(http://smallenvelop.com/wp-content/uploads/2014/08/Preloader_10.gif) center no-repeat #fff;
 }
 
 @media screen and (max-width: 768px) {
