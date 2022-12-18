@@ -88,8 +88,8 @@ function displayOutPut() {
     const numOfComb = document.getElementById("numOfComb");
     numOfComb.innerHTML = "<h3> Number Of Tickets: " + outPut.length + "</h3>";
     for (
-      let index = currentLimit * 30;
-      index < (currentLimit + 1) * 30;
+      let index = currentLimit * 100;
+      index < (currentLimit + 1) * 100;
       index++
     ) {
       const eachOutPut = outPut[index];
@@ -118,7 +118,7 @@ function displayOutPut() {
                                 return `<td class='quan-text-bold quan-bg-pink'>${item}</td>`;
                               else return `<td>${item}</td>`;
                             })}
-                            <td>${eachArr[3] ? eachArr[3] : ""}</td>
+                            <td>${eachArr[3]}</td>
                         </tr>`;
                     })}
                 </tbody>
@@ -223,7 +223,11 @@ const calc = (depth, remain, items) => {
   let newArr = [];
   if (groupArray.length < depth + 1) {
     const lastArr = items[items.length - 1].slice(0, 3);
-    if (Math.min(...lastArr) >= min && Math.max(...lastArr) <= max) {
+    if (
+      Math.min(...lastArr) >= min &&
+      Math.max(...lastArr) <= max &&
+      Math.max(...lastArr) > 0
+    ) {
       outPut.push(items);
     }
     return;
@@ -385,7 +389,7 @@ const toPrev = () => {
 };
 
 const toNext = () => {
-  if (currentLimit < Math.ceil(outPut.length / 30) - 1)
+  if (currentLimit < Math.ceil(outPut.length / 100) - 1)
     currentLimit = currentLimit + 1;
   if (outPut.length) displayOutPut();
 };
@@ -396,7 +400,7 @@ const toPrevEnd = () => {
 };
 
 const toNextEnd = () => {
-  currentLimit = Math.ceil(outPut.length / 30) - 1;
+  currentLimit = Math.ceil(outPut.length / 100) - 1;
   console.log("currentLimit ", currentLimit);
   if (outPut.length) displayOutPut();
 };
